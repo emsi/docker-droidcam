@@ -1,8 +1,9 @@
 #!/bin/bash
 
-VIDEO_DEV_NO=9
+export VIDEO_DEV_NO=9
 
-sudo modprobe v4l2loopback exclusive_caps=1 video_nr="${VIDEO_DEV_NO}" card_label="droidcam"
+sudo modprobe v4l2loopback 
+sudo ./utils/v4l2loopback-ctl add -x 1 -n "droidcam" "/dev/video${VIDEO_DEV_NO}"
 sudo modprobe snd-aloop
 
 # bash has shell variable UID (which is readonly BTW)

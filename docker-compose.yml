@@ -18,7 +18,7 @@ services:
     user: "${UID}:${GID}"
     devices: 
       - /dev/dri
-      - /dev/video9
+      - "/dev/video${VIDEO_DEV_NO}"
       - /dev/snd/:/dev/snd/
     group_add:
       - audio
