@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  droidcam:
+    build:
+      context: .
+    # required to disable /proc/asound mount masks
+    privileged: true
+    environment: 
+      DISPLAY:
+      QT_X11_NO_MITSHM: 1
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/asound.conf:/etc/asound.conf
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/group:/etc/group:ro
+    user: "${UID}:${GID}"
+    devices: 
+      - /dev/dri
+      - /dev/video9
+      - /dev/snd/:/dev/snd/
+    group_add:
+      - audio
+      - video
+    init: true
+
+    #    deploy:
+    #      placement:
+    #        constraints:
+    #            - node.role == manager
+    #  
+    command: "droidcam-cli"
